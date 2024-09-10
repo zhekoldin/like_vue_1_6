@@ -1,23 +1,60 @@
-import logo from './logo.svg';
 import './App.css';
+import CourseList from './CourseList/CourseList.tsx';
+
+const list = [
+  {
+    id: 1,
+    title: 'Hello',
+    description: 'World World World World World World World World World',
+    counter: 5,
+    is_active: true
+  },
+  {
+    id: 2,
+    title: 'Hello',
+    description: 'World World World World World World World World World',
+    counter: 5,
+    is_active: true
+  },
+  {
+    id: 3,
+    title: 'Hello',
+    description: 'World World World World World World World World World',
+    counter: 5,
+    is_active: true
+  },
+  {
+    id: 4,
+    title: 'Hello',
+    description: 'World World World World World World World World World',
+    counter: 5,
+    is_active: false
+  },
+  {
+    id: 5,
+    title: 'Hello',
+    description: 'World World World World World World World World World',
+    counter: 5,
+    is_active: true
+  },
+  {
+    id: 6,
+    title: 'Hello',
+    description: 'World World World World World World World World World',
+    counter: 5,
+    is_active: false
+  },
+]
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <div>
+      <header>
+        Список курсов
       </header>
+      <main>
+        <CourseList list={list} />
+      </main>
     </div>
   );
 }
