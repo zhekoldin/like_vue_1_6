@@ -3,10 +3,10 @@ import styles from '../CourseList/CourseList.module.css'
 
 import CourseItem from '../CourseItem/CourseItem.tsx'
 
-function CourseList ({list = []}) {
+function CourseList ({courseList, onEditCourse}) {
     return (
         <div className={styles.courseList}>
-            {list.map(item => (<CourseItem course={item} />))}
+            {courseList.map(item => (<CourseItem key={item.id} course={item} onEditCourse={onEditCourse} />))}
         </div>
     )
 }

@@ -1,7 +1,8 @@
+import { useState } from 'react';
 import './App.css';
 import CourseList from './CourseList/CourseList.tsx';
 
-const list = [
+const mockList = [
   {
     id: 1,
     title: 'Hello',
@@ -47,13 +48,24 @@ const list = [
 ]
 
 function App() {
+  const [courseList, setCourseList] = useState(mockList)
+
+  function onEditCourse(course) {
+    setCourseList(prev => {
+      const index = prev.findIndex(item => item.id === course.id)
+      prev.splice(index, 1, course)
+
+      return prev
+    })
+  }
+
   return (
     <div>
       <header>
         Список курсов
       </header>
       <main>
-        <CourseList list={list} />
+        <CourseList courseList={mockList} onEditCourse={onEditCourse} />
       </main>
     </div>
   );
