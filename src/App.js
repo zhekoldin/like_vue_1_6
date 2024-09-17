@@ -48,16 +48,6 @@ const mockList = [
 ]
 
 function App() {
-  const [courseList, setCourseList] = useState(mockList)
-
-  function onEditCourse(course) {
-    setCourseList(prev => {
-      const index = prev.findIndex(item => item.id === course.id)
-      prev.splice(index, 1, course)
-
-      return prev
-    })
-  }
 
   return (
     <div>
@@ -65,7 +55,7 @@ function App() {
         Список курсов
       </header>
       <main>
-        <CourseList courseList={mockList} onEditCourse={onEditCourse} />
+        <CourseList courseList={mockList} />
       </main>
     </div>
   );
