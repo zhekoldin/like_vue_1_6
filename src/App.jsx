@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import './App.css';
 import CourseList from './CourseList/CourseList.tsx';
 
@@ -49,13 +48,19 @@ const mockList = [
 
 function App() {
 
+  let resultList = mockList;
+
+  function onChangeList(list) {
+    resultList = list
+  }
+
   return (
     <div>
       <header>
         Список курсов
       </header>
       <main>
-        <CourseList courseList={mockList} />
+        <CourseList courseList={resultList} onChangeList={onChangeList} />
       </main>
     </div>
   );

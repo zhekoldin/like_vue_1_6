@@ -11,6 +11,10 @@
     user-select: none;
 }
 
+.course_disable {
+    cursor: default;
+}
+
 .course__title {
     font-size: 20px;
     font-weight: 700;

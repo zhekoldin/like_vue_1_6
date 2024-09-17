@@ -1,12 +1,50 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styles from '../CourseList/CourseList.module.css'
 
 import CourseItem from '../CourseItem/CourseItem.tsx'
+import EditCourseModal from '../EditCourseModal/EditCourseModal.tsx'
+import { ICourse } from '../types'
 
-function CourseList ({courseList, onEditCourse}) {
+interface IProps {
+    courseList: ICourse[],
+    onChangeList: (courseList: ICourse[]) => void
+}
+
+function CourseList({courseList, onChangeList}: IProps) {
+    const [editingCourse, setEditingCourse] = useState<null | ICourse>(null)
+
+    function onOpenCourse(course: ICourse) {
+        console.log(course)
+        setEditingCourse(course);
+    }
+
+    function onCloseEditModal() {
+        setEditingCourse(null)
+    }
+
+    function onChangeCourse(course: ICourse) {
+        const courseIndex = courseList.findIndex(item => item.id === course.id)
+
+        let resultList = [...courseList];
+        resultList.splice(courseIndex, 1, course)
+
+        onChangeList(resultList)
+    }
+
+    function getCourseComponent(course: ICourse): React.ReactElement {
+        return (
+            <CourseItem key={course.id} course={course} onOpenCourse={onOpenCourse} />
+        )
+    }
+
     return (
         <div className={styles.courseList}>
-            {courseList.map(item => (<CourseItem key={item.id} course={item} onEditCourse={onEditCourse} />))}
+            {courseList.map(item => getCourseComponent(item))}
+            <EditCourseModal 
+                course={editingCourse}
+                onCloseEditModal={onCloseEditModal}
+                onSubmit={onChangeCourse}
+             />
         </div>
     )
 }
