@@ -14,7 +14,6 @@ function CourseList({courseList, onChangeList}: IProps) {
     const [editingCourse, setEditingCourse] = useState<null | ICourse>(null)
 
     function onOpenCourse(course: ICourse) {
-        console.log(course)
         setEditingCourse(course);
     }
 
@@ -23,6 +22,7 @@ function CourseList({courseList, onChangeList}: IProps) {
     }
 
     function onChangeCourse(course: ICourse) {
+        console.log(course)
         const courseIndex = courseList.findIndex(item => item.id === course.id)
 
         let resultList = [...courseList];

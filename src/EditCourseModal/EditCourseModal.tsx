@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from '../EditCourseModal/EditCourseModal.module.css'
 import Modal from '../Modal/Modal.tsx'
 import { ICourse } from '../types'
@@ -10,18 +10,35 @@ interface IProps {
 }
 
 export default function EditCourseModal({course, onCloseEditModal, onSubmit}: IProps) {
-    const [newCourse, setNewCourseData] = useState(course)
+    const [description, setNewDescription] = useState(course?.description)
+    const [title, setNewTitle] = useState(course?.title)
+    
 
     const selectors = {
         name_input_id: 'path_input_name',
         description_input_id: 'path_input_description',
     }
 
+    function isSameCourse(): boolean {
+        return course?.title === title && course?.description === description
+    }
+
     function submit(e) {
         e.preventDefault();
         
-        if (!newCourse) {
+        if (
+            !course
+            || !title
+            || !description
+            || isSameCourse()
+        ) {
             return onCloseEditModal()
+        }
+
+        const newCourse: ICourse = {
+            ...course,
+            title,
+            description
         }
 
         onSubmit(newCourse)
@@ -34,17 +51,13 @@ export default function EditCourseModal({course, onCloseEditModal, onSubmit}: IP
     }
 
     function onChangeTitle(e) {
-        if (!newCourse) return
-
         const newTitle = e?.target?.value;
 
         if (newTitle === course?.title) {
             return
         }
 
-        setNewCourseData(prevState => {
-            return {...prevState, title: newTitle}
-        })
+        setNewTitle(title)
     }
 
     function onChangeDescription(e) {
@@ -54,9 +67,7 @@ export default function EditCourseModal({course, onCloseEditModal, onSubmit}: IP
             return
         }
 
-        setNewCourseData(prevState => {
-            return {...prevState, description: newDescription}
-        })
+        setNewDescription(newDescription)
     }
 
     return (
@@ -65,10 +76,10 @@ export default function EditCourseModal({course, onCloseEditModal, onSubmit}: IP
                 <h1 className={styles.editCourseModule__title}>Редактирование курса</h1>
                 <form className={styles.editCourseModule__form}>
                     <label htmlFor={selectors.name_input_id}>Название курса:</label>
-                    <input id={selectors.name_input_id} type="text" onInput={onChangeTitle} defaultValue={course.title} />
+                    <input id={selectors.name_input_id} type="text" onChange={onChangeTitle} defaultValue={course.title} />
 
                     <label htmlFor={selectors.description_input_id}>Описание курса:</label>
-                    <input id={selectors.description_input_id} type="text" onInput={onChangeDescription} defaultValue={course.description} />
+                    <input id={selectors.description_input_id} type="text" onChange={onChangeDescription} defaultValue={course.description} />
 
                     <div className={styles.editCourseModule__footer}>
                         <button 
