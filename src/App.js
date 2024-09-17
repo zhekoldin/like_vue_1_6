@@ -1,7 +1,8 @@
+import { useState } from 'react';
 import './App.css';
 import CourseList from './CourseList/CourseList.tsx';
 
-const list = [
+const mockList = [
   {
     id: 1,
     title: 'Hello',
@@ -47,13 +48,14 @@ const list = [
 ]
 
 function App() {
+
   return (
     <div>
       <header>
         Список курсов
       </header>
       <main>
-        <CourseList list={list} />
+        <CourseList courseList={mockList} />
       </main>
     </div>
   );
